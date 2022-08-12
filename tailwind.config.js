@@ -20,7 +20,8 @@ module.exports = {
   theme: {
     colors:{
       "primary": "#62b7fc",
-      "primary-darker": "#1f98fa"
+      "primary-darker": "#1f98fa",
+      "secondary": "#febb02"
     },
     extend: {},
   },

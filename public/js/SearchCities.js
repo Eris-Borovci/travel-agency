@@ -36,6 +36,5 @@ class Cities {
         this.AIClass.removeActivityIndicator();
         this.CitiesItemClass.refreshCountries(cities);
         this.CitiesItemClass.refreshCities();
-
     }    
 }
