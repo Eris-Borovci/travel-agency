@@ -19,7 +19,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js', "public/js/fontawesome.js"])
 </head>
-<body>
+<body class="{{ isset($overflow) ? "overflow-hidden" : "" }}">
     <div id="app">
         <div class="bg-primary text-white">
             @include("inc.header")

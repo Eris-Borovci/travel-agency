@@ -43,41 +43,45 @@
                 </div>
             </li>
           @endguest
-          <li class="my-1 block md:hidden">
-            <a href="/" class="flex items-center p-1 px-2 rounded-lg border border-transparent hover:border-white {{ Request::is("/") ? 'border-white' : '' }}">
-              <svg class="h-8 w-8 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 7v11m0 -4h18m0 4v-8a2 2 0 0 0 -2 -2h-8v6" />  <circle cx="7" cy="10" r="1" /></svg>
-              <p class="pl-1">Stays</p>
-            </a>
-          </li>
-          <li class="my-1 block md:hidden">
-            <a href="/rentals" class="flex items-center rounded-lg p-1 px-2 border border-transparent hover:border-white {{ Request::is("rentals") ? 'border-white' : '' }}">
-              <svg class="h-8 w-8 color-white font-normal"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="7" cy="17" r="2" />  <circle cx="17" cy="17" r="2" />  <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" /></svg>
-              <p class="pl-1 font-normal">Car rentals</p>
-            </a>
-          </li>
+          @if (!Request::is("register") || !Request::is("login"))
+            <li class="my-1 block md:hidden">
+              <a href="/" class="flex items-center p-1 px-2 rounded-lg border border-transparent hover:border-white {{ Request::is("/") ? 'border-white' : '' }}">
+                <svg class="h-8 w-8 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 7v11m0 -4h18m0 4v-8a2 2 0 0 0 -2 -2h-8v6" />  <circle cx="7" cy="10" r="1" /></svg>
+                <p class="pl-1">Stays</p>
+              </a>
+            </li>
+            <li class="my-1 block md:hidden">
+              <a href="/rentals" class="flex items-center rounded-lg p-1 px-2 border border-transparent hover:border-white {{ Request::is("rentals") ? 'border-white' : '' }}">
+                <svg class="h-8 w-8 color-white font-normal"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="7" cy="17" r="2" />  <circle cx="17" cy="17" r="2" />  <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" /></svg>
+                <p class="pl-1 font-normal">Car rentals</p>
+              </a>
+            </li>
+          @endif
         </ul>
       </div>
     </div>
   </nav>
   
   {{-- Second Menu --}}
-  <nav class=" border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 hidden md:block">
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
-      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-        <ul class="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-          <li>
-            <a href="/" class="flex items-center p-1 px-2 rounded-lg border border-transparent hover:border-white {{ Request::is("/") ? 'border-white' : '' }}">
-              <svg class="h-8 w-8 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 7v11m0 -4h18m0 4v-8a2 2 0 0 0 -2 -2h-8v6" />  <circle cx="7" cy="10" r="1" /></svg>
-              <p class="pl-1">Stays</p>
-            </a>
-          </li>
-          <li class="pl-4">
-            <a href="/rentals" class="flex items-center rounded-lg p-1 px-2 border border-transparent hover:border-white {{ Request::is("rentals") ? 'border-white' : '' }}">
-              <svg class="h-8 w-8 color-white font-normal"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="7" cy="17" r="2" />  <circle cx="17" cy="17" r="2" />  <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" /></svg>
-              <p class="pl-1 font-normal">Car rentals</p>
-            </a>
-          </li>
-        </ul>
+  @if (!Request::is("register") and !Request::is("login"))
+    <nav class=" border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 hidden md:block">
+      <div class="container flex flex-wrap justify-between items-center mx-auto">
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+          <ul class="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+            <li>
+              <a href="/" class="flex items-center p-1 px-2 rounded-lg border border-transparent hover:border-white {{ Request::is("/") ? 'border-white' : '' }}">
+                <svg class="h-8 w-8 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 7v11m0 -4h18m0 4v-8a2 2 0 0 0 -2 -2h-8v6" />  <circle cx="7" cy="10" r="1" /></svg>
+                <p class="pl-1">Stays</p>
+              </a>
+            </li>
+            <li class="pl-4">
+              <a href="/rentals" class="flex items-center rounded-lg p-1 px-2 border border-transparent hover:border-white {{ Request::is("rentals") ? 'border-white' : '' }}">
+                <svg class="h-8 w-8 color-white font-normal"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="7" cy="17" r="2" />  <circle cx="17" cy="17" r="2" />  <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" /></svg>
+                <p class="pl-1 font-normal">Car rentals</p>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  @endif
