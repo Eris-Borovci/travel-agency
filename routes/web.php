@@ -21,6 +21,11 @@ Route::get("/rentals", function() {
     return view("pages.index");
 });
 
+Route::get("/partner", function() {
+    // return view("auth.register");
+    return "asdasd";
+});
+
 Auth::routes(["verify" => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

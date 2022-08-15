@@ -3,7 +3,7 @@
 @section("content")
     <link rel="stylesheet" href="{{ asset("css/autocomplete.css") }}">
     {{-- The Header --}}
-    <div class="py-16 bg-primary text-white">
+    <div class="py-16 bg-blue-800 text-white">
         <div class="container mx-auto">
         <h1 class="font-bold text-5xl">Find your next stay</h1>
         <p class="text-xl py-2">Search deals on hotels, homes etc...</p>

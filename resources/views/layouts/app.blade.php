@@ -21,7 +21,7 @@
 </head>
 <body class="{{ isset($overflow) ? "overflow-hidden" : "" }}">
     <div id="app">
-        <div class="bg-primary text-white">
+        <div class="bg-blue-800 text-white">
             @include("inc.header")
         </div>
 

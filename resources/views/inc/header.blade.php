@@ -14,17 +14,23 @@
         <ul class="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
           <!-- Authentication Links -->
           @guest
+            <li class="border border-white px-3 py-2 rounded-sm mr-3">
+              <a class="block py-2 pr-4 pl-3 text-white rounded md:border-0 md:p-0 md:dark:hover:bg-transparent " href="{{ route('partner') }}">{{ __('Become a partner') }}</a>
+            </li>
+            
+            @if (Route::has('register'))
+                <li class="bg-white px-3 py-2 rounded-sm">
+                    <a class="block py-2 pr-4 pl-3 text-primary-darker rounded md:border-0 md:p-0 md:dark:hover:bg-transparent" href="{{ route('register') }}">{{ __('Register') }}</a>
+                </li>
+            @endif
+            
             @if (Route::has('login'))
-                <li>
-                    <a class="block py-2 pr-4 pl-3 text-white rounded md:border-0 md:p-0 md:dark:hover:bg-transparent" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <li class="bg-white px-3 py-2 rounded-sm">
+                    <a class="block py-2 pr-4 text-primary-darker rounded md:border-0 md:p-0" href="{{ route('login') }}">{{ __('Login') }}</a>
                 </li>
             @endif
 
-            @if (Route::has('register'))
-                <li>
-                    <a class="block py-2 pr-4 pl-3 text-white rounded md:border-0 md:p-0 md:dark:hover:bg-transparent" href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
-            @endif
+
          @else
             <li class="nav-item dropdown">
               <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white flex justify-center items-center " type="button">{{ Auth::user()->name }} <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
@@ -61,13 +67,13 @@
           @endguest
           @if (!Request::is("register") || !Request::is("login"))
             <li class="my-1 block md:hidden">
-              <a href="/" class="flex items-center p-1 px-2 rounded-lg border border-transparent hover:border-white {{ Request::is("/") ? 'border-white' : '' }}">
+              <a href="/" class="flex items-center p-1 px-2 rounded-sm border border-transparent hover:border-white {{ Request::is("/") ? 'border-white' : '' }}">
                 <svg class="h-8 w-8 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 7v11m0 -4h18m0 4v-8a2 2 0 0 0 -2 -2h-8v6" />  <circle cx="7" cy="10" r="1" /></svg>
                 <p class="pl-1">Stays</p>
               </a>
             </li>
             <li class="my-1 block md:hidden">
-              <a href="/rentals" class="flex items-center rounded-lg p-1 px-2 border border-transparent hover:border-white {{ Request::is("rentals") ? 'border-white' : '' }}">
+              <a href="/rentals" class="flex items-center rounded-sm p-1 px-2 border border-transparent hover:border-white {{ Request::is("rentals") ? 'border-white' : '' }}">
                 <svg class="h-8 w-8 color-white font-normal"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="7" cy="17" r="2" />  <circle cx="17" cy="17" r="2" />  <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" /></svg>
                 <p class="pl-1 font-normal">Car rentals</p>
               </a>
