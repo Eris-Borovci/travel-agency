@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -39,6 +40,31 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /*
+        Request $request
+    */
+    
+    public function register(Request $request){
+        $validator = $this->validator((array)$request->all());
+
+        $role = null;
+        (isset($request->role)) ? $role = $request->role : $role = "user";
+
+        if($validator->fails()) {
+            return redirect("/register")->withInput($request->except('password'))
+            ->withErrors($validator);
+        } else {
+            $data = array(
+                "name" => $request->name . " " . $request->lastname,
+                "email" => $request->email,
+                "password" => $request->password,
+                "role" => $role
+            );
+
+            $this->create($data);
+        }
     }
 
     /**
