@@ -15,7 +15,7 @@
           <!-- Authentication Links -->
           @guest
             <li class="border border-white px-3 py-2 rounded-sm mr-3">
-              <a class="block py-2 pr-4 pl-3 text-white rounded md:border-0 md:p-0 md:dark:hover:bg-transparent " href="{{ route('partner') }}">{{ __('Become a partner') }}</a>
+              <a class="block py-2 pr-4 pl-3 text-white rounded md:border-0 md:p-0 md:dark:hover:bg-transparent " href="/partner/register">{{ __('Become a partner') }}</a>
             </li>
             
             @if (Route::has('register'))

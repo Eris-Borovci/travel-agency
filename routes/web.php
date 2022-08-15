@@ -21,10 +21,9 @@ Route::get("/rentals", function() {
     return view("pages.index");
 });
 
-Route::get("/partner", function() {
-    // return view("auth.register");
-    return "asdasd";
-});
+Route::get("/partner", [App\Http\Controllers\PartnerController::class, "index"]);
+Route::get("/partner/register", [App\Http\Controllers\PartnerController::class, "register"]);
+Route::get("/partner/login", [App\Http\Controllers\PartnerController::class, "login"]);
 
 Auth::routes(["verify" => true]);
 
