@@ -66,7 +66,16 @@ class RegisterController extends Controller
             $user = $this->create($data);
             \Auth::login($user);
 
-            return redirect("/home");
+            switch (Auth::user()->role) {
+                case 'partner':
+                    return redirect("/partner");
+                    break;
+                case 'user':
+                    return redirect("/home");
+                default:
+                    return redirect("/");
+                    break;
+            }
         }
     }
 

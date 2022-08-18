@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        {{-- <script src="https://kit.fontawesome.com/67f8e199dc.js" crossorigin="anonymous"></script> --}}
-        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,11 +9,12 @@
     
     <title>{{ config('app.name', 'Laravel') }}</title>
     
-    {{-- <link rel="stylesheet" href="{{ asset("css/all.min.css") }}"> --}}
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    
+
+    <link rel="stylesheet" href="{{ asset("fontawesome-free-6.1.2-web/css/all.css") }}">
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js', "public/js/fontawesome.js"])
 </head>
@@ -29,6 +28,7 @@
             @yield('content')
         </main>
     </div>
+
     <footer class="text-center text-gray-600 mt-12">
         Copyright © 1996–2022 Booking.com™. All rights reserved.
     </footer>

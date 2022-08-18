@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\NotPartner;
+use App\Http\Middleware\ShouldPartner;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.index');
-});
+})->middleware(NotPartner::class);
 
 Route::get("/rentals", function() {
-    return view("pages.index");
+    return view("pages.index")->middleware(NotPartner::class);
 });
 
-Route::get("/partner", [App\Http\Controllers\PartnerController::class, "index"]);
+Route::get("/partner", [App\Http\Controllers\PartnerController::class, "index"])->middleware(ShouldPartner::class);
 Route::get("/partner/register", [App\Http\Controllers\PartnerController::class, "register"]);
-Route::get("/partner/login", [App\Http\Controllers\PartnerController::class, "login"]);
 
 Auth::routes(["verify" => true]);
 

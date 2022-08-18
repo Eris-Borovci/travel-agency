@@ -7,14 +7,10 @@ use Illuminate\Http\Request;
 class PartnerController extends Controller
 {
     public function index(){
-        return "Partner routes";
+        return view("partner.index");
     }
 
     public function register() {
         return view("partner.register");
-    }
-
-    public function login() {
-        return "login";
     }
 }
