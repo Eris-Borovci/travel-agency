@@ -30,7 +30,7 @@
             <div class="border border-t border-t-gray-300 my-6"></div>
             <div>
                 <h1 class="text-center">Already have an account?</h1>
-                <a href="/partner/login" class="bg-white border border-blue-600 hover:border-blue-500 hover:text-blue-500 transition mt-3 p-3 w-full block text-center text-blue-600 rounded-sm">Sign in</a>
+                <a href="/login" class="bg-white border border-blue-600 hover:border-blue-500 hover:text-blue-500 transition mt-3 p-3 w-full block text-center text-blue-600 rounded-sm">Sign in</a>
             </div>
         </div>
         <div 

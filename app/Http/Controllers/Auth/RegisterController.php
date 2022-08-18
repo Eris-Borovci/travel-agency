@@ -63,7 +63,10 @@ class RegisterController extends Controller
                 "role" => $role
             );
 
-            $this->create($data);
+            $user = $this->create($data);
+            \Auth::login($user);
+
+            return redirect("/home");
         }
     }
 
