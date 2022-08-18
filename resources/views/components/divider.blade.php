@@ -1,0 +1,1 @@
+<div class="border border-t border-t-gray-300 my-6"></div>

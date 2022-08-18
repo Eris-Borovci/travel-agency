@@ -53,7 +53,7 @@ class RegisterController extends Controller
         (isset($request->role)) ? $role = $request->role : $role = "user";
 
         if($validator->fails()) {
-            return redirect("/register")->withInput($request->except('password'))
+            return redirect()->back()->withInput($request->except('password'))
             ->withErrors($validator);
         } else {
             $data = array(
@@ -94,6 +94,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            "role" => $data['role']
         ]);
     }
 }

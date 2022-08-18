@@ -1,4 +1,4 @@
-@extends("layouts.app")
+@extends("layouts.app", ["hide_nav" => true])
 
 @section("content")
     <div class="flex max-h-screen bg-white">

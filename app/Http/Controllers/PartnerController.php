@@ -11,7 +11,7 @@ class PartnerController extends Controller
     }
 
     public function register() {
-        return "new Partner";
+        return view("partner.register");
     }
 
     public function login() {

@@ -65,7 +65,7 @@
               </div>
             </li>
           @endguest
-          @if (!Request::is("register") || !Request::is("login"))
+          @if (!isset($hide_nav))
             <li class="my-1 block md:hidden">
               <a href="/" class="flex items-center p-1 px-2 rounded-sm border border-transparent hover:border-white {{ Request::is("/") ? 'border-white' : '' }}">
                 <svg class="h-8 w-8 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 7v11m0 -4h18m0 4v-8a2 2 0 0 0 -2 -2h-8v6" />  <circle cx="7" cy="10" r="1" /></svg>
@@ -85,7 +85,7 @@
   </nav>
   
   {{-- Second Menu --}}
-  @if (!Request::is("register") and !Request::is("login"))
+  @if (!isset($hide_nav))
     <nav class=" border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 hidden md:block">
       <div class="container flex flex-wrap justify-between items-center mx-auto">
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">

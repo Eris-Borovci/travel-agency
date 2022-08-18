@@ -15,7 +15,8 @@ module.exports = {
     "fill-blue-600",
     "animate-spin",
     "px-3",
-    "absolute"
+    "absolute",
+    "overflow-y-hidden"
   ],
   theme: {
     colors:{
