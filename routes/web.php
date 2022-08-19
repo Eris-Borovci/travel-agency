@@ -20,11 +20,11 @@ Route::get('/', function () {
 })->middleware(NotPartner::class);
 
 Route::get("/rentals", function() {
-    return view("pages.index")->middleware(NotPartner::class);
-});
+    return view("pages.index");
+})->middleware(NotPartner::class);
 
-Route::get("/partner", [App\Http\Controllers\PartnerController::class, "index"])->middleware(ShouldPartner::class);
-Route::get("/partner/register", [App\Http\Controllers\PartnerController::class, "register"]);
+Route::resource('/partner', App\Http\Controllers\PartnerController::class)->middleware(ShouldPartner::class);
+Route::resource('/property', App\Http\Controllers\PropertiesController::class)->middleware(ShouldPartner::class);
 
 Auth::routes(["verify" => true]);
 

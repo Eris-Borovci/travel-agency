@@ -18,7 +18,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js', "public/js/fontawesome.js"])
 </head>
-<body class="{{ isset($overflow) ? "overflow-y-hidden" : "" }}">
+<body class="{{ isset($overflow) ? "overflow-y-hidden" : "" }} bg-gray-50">
     <div id="app">
         <div class="bg-blue-800 text-white">
             @include("inc.header")
@@ -30,7 +30,7 @@
     </div>
 
     <footer class="text-center text-gray-600 mt-12">
-        Copyright © 1996–2022 Booking.com™. All rights reserved.
+        Copyright <i class="fa-solid fa-copyright"></i> 1996–2022 Booking.com™. All rights reserved.
     </footer>
     <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/flowbite@1.5.2/dist/flowbite.js"></script>

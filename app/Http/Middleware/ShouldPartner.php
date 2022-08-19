@@ -16,7 +16,9 @@ class ShouldPartner
      */
     public function handle(Request $request, Closure $next)
     {
-        if(\Auth::user()->role != "partner") {
+        if(!isset(\Auth::user()->role)){
+            return redirect("/");
+        } else if(\Auth::user()->role != "partner") {
             return redirect("/");
         }
 

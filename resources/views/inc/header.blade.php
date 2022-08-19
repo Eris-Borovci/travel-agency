@@ -15,7 +15,7 @@
           <!-- Authentication Links -->
           @guest
             <li class="border border-white px-3 py-2 rounded-sm mr-3">
-              <a class="block py-2 pr-4 pl-3 text-white rounded md:border-0 md:p-0 md:dark:hover:bg-transparent " href="/partner/register">{{ __('Become a partner') }}</a>
+              <a class="block py-2 pr-4 pl-3 text-white rounded md:border-0 md:p-0 md:dark:hover:bg-transparent " href="/partner/create">{{ __('Become a partner') }}</a>
             </li>
             
             @if (Route::has('register'))
@@ -99,13 +99,13 @@
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul class="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
             <li>
-              <a href="/" class="flex items-center p-1 px-2 rounded-lg border border-transparent hover:border-white {{ Request::is("/") ? 'border-white' : '' }}">
+              <a href="/" class="flex items-center p-1 px-2 rounded-lg border hover:border-white {{ Request::is("/") ? 'border-white' : ' border-transparent' }}">
                 <svg class="h-8 w-8 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 7v11m0 -4h18m0 4v-8a2 2 0 0 0 -2 -2h-8v6" />  <circle cx="7" cy="10" r="1" /></svg>
                 <p class="pl-1">Stays</p>
               </a>
             </li>
             <li class="pl-4">
-              <a href="/rentals" class="flex items-center rounded-lg p-1 px-2 border border-transparent hover:border-white {{ Request::is("rentals") ? 'border-white' : '' }}">
+              <a href="/rentals" class="flex items-center rounded-lg p-1 px-2 border hover:border-white {{ Request::is("rentals") ? 'border-white' : ' border-transparent' }}">
                 <svg class="h-8 w-8 color-white font-normal"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="7" cy="17" r="2" />  <circle cx="17" cy="17" r="2" />  <path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" /></svg>
                 <p class="pl-1">Car rentals</p>
               </a>
