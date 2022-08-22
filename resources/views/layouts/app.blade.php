@@ -3,7 +3,10 @@
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
@@ -32,6 +35,7 @@
     <footer class="text-center text-gray-600 mt-12">
         Copyright <i class="fa-solid fa-copyright"></i> 1996–2022 Booking.com™. All rights reserved.
     </footer>
+    
     <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/flowbite@1.5.2/dist/flowbite.js"></script>
     <script src="https://unpkg.com/flowbite@1.5.2/dist/datepicker.js"></script>

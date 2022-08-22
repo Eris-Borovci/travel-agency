@@ -23,6 +23,10 @@ Route::get("/rentals", function() {
     return view("pages.index");
 })->middleware(NotPartner::class);
 
+Route::get("/partner/register", function() {
+    return view("partner.register");
+});
+
 Route::resource('/partner', App\Http\Controllers\PartnerController::class)->middleware(ShouldPartner::class);
 Route::resource('/property', App\Http\Controllers\PropertiesController::class)->middleware(ShouldPartner::class);
 
