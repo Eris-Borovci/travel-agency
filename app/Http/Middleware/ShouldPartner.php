@@ -16,11 +16,9 @@ class ShouldPartner
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!isset(\Auth::user()->role)){
-            return redirect("/");
-        } else if(\Auth::user()->role != "partner") {
-            return redirect("/");
-        }
+        if($request->path() == "partner/create") return $next($request);
+        if(!isset(\Auth::user()->role)) return redirect("/"); 
+        if(\Auth::user()->role != "partner") return redirect("/");
 
         return $next($request);
     }
