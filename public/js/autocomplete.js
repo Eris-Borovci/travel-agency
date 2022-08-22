@@ -10,6 +10,12 @@ const debounce = (func, delay) => {
 
 const inp = document.getElementById("myInput");
 
+const City = new Cities(inp, "CITY");
+
+const checkCityValidation = () => {
+    return City.checkCity(inp.value);
+};
+
 function autocomplete() {
     var currentFocus;
     function changeCurrent(value) {
@@ -21,7 +27,7 @@ function autocomplete() {
         changeCurrent: () => changeCurrent(-1),
     };
 
-    const City = new Cities(inp, callbacks, "CITY");
+    City.bindCallbacks(callbacks);
 
     const fetch = debounce(() => {
         City.fetchCities(inp.value);

@@ -8,7 +8,7 @@ class CitiesItem {
         this.countries = countries;
     }
 
-    refreshCountries(cnt){
+    refreshCountries(cnt) {
         this.countries = cnt;
     }
 
@@ -16,17 +16,18 @@ class CitiesItem {
         this.callbacks.closeAllLists();
     }
 
-    noResults() {
-
-    }
+    noResults() {}
 
     refreshCities() {
-        var a, b, i, val = inp.value;
+        var a,
+            b,
+            i,
+            val = inp.value;
         /*close any already open lists of autocompleted values*/
         this.callbacks.closeAllLists();
-        if (!val) { 
-          removeActivityIndicator();
-          return false;
+        if (!val) {
+            removeActivityIndicator();
+            return false;
         }
         this.callbacks.changeCurrent(-1);
         /*create a DIV element that will contain the items (values):*/
@@ -38,7 +39,7 @@ class CitiesItem {
         /*for each item in the countriesay...*/
         /* Checking if there is no result found */
         console.log(this.countries);
-        if(this.countries.length < 1) {
+        if (this.countries.length < 1) {
             let b = document.createElement("DIV");
             b.style.textAlign = "center";
 
@@ -53,13 +54,13 @@ class CitiesItem {
         }
 
         for (let i = 0; i < this.countries.length; i++) {
-          /*check if the item starts with the same letters as the text field value:*/
-        //   if (this.countries[i].city.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-          /*create a DIV element for each matching element:*/
+            /*check if the item starts with the same letters as the text field value:*/
+            //   if (this.countries[i].city.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
             b = document.createElement("DIV");
             b.style.display = "flex";
             b.classList.add("city-item");
-            
+
             const markerIconContainer = document.createElement("DIV");
             markerIconContainer.style.display = "flex";
             markerIconContainer.style.alignItems = "center";
@@ -72,14 +73,14 @@ class CitiesItem {
             b.appendChild(markerIconContainer);
 
             const infoContainer = document.createElement("DIV");
-            infoContainer.classList.add("px-3")
+            infoContainer.classList.add("px-3");
 
             const cityInfo = document.createElement("DIV");
             cityInfo.classList.add("font-semibold");
             cityInfo.innerHTML = this.countries[i].city;
 
             const countryContainer = document.createElement("DIV");
-            countryContainer.classList.add("text-gray-400")
+            countryContainer.classList.add("text-gray-400");
             countryContainer.innerHTML = this.countries[i].country;
 
             infoContainer.appendChild(cityInfo);
@@ -88,9 +89,10 @@ class CitiesItem {
             b.appendChild(infoContainer);
 
             /*insert a input field that will hold the current countriesay item's value:*/
-            b.innerHTML += "<input type='hidden' value='" + this.countries[i].city + "'>";
+            b.innerHTML +=
+                "<input type='hidden' value='" + this.countries[i].city + "'>";
             /*execute a function when someone clicks on the item value (DIV element):*/
-            b.addEventListener("click", function(e) {
+            b.addEventListener("click", function (e) {
                 /*insert the value for the autocomplete text field:*/
                 inp.value = this.getElementsByTagName("input")[0].value;
                 /*close the list of autocompleted values,
@@ -98,8 +100,7 @@ class CitiesItem {
                 // this.callbacks.closeAllLists();
             });
             a.appendChild(b);
-          }
-        // }
+        }
     }
 
     // no

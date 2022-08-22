@@ -2,6 +2,9 @@ class Cities {
     AIClass;
     CitiesItemClass;
     Type;
+    callbacks;
+
+    LastCities = [];
     options = {
         method: "GET",
         headers: {
@@ -11,25 +14,20 @@ class Cities {
         },
     };
 
-    constructor(parent, callbacks, type) {
+    constructor(parent, type) {
         this.parent = parent;
-        this.callbacks = callbacks;
         this.AIClass = new ActivityIndicator(this.parent);
         this.Type = type;
-        this.CitiesItemClass = new CitiesItem(this.callbacks, this.parent, []);
     }
 
-    async checkCity(query) {
-        const response = await this.fetchCities(query);
-
-        const json = await response.json();
-
-        console.log(json);
+    bindCallbacks(callbacks) {
+        this.callbacks = callbacks;
+        this.CitiesItemClass = new CitiesItem(this.callbacks, this.parent, []);
     }
 
     async fetchCities(query) {
         // Stopping the fetch so it doesnt spend my requests
-        return;
+        // return;
 
         // Add Indicator
         this.AIClass.addActivityIndicator();
@@ -56,6 +54,7 @@ class Cities {
             cities.push(info);
         });
 
+        this.LastCities = cities;
         this.AIClass.removeActivityIndicator();
         this.CitiesItemClass.refreshCountries(cities);
         this.CitiesItemClass.refreshCities();

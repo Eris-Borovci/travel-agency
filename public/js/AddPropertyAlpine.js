@@ -4,6 +4,29 @@ document.addEventListener("alpine:init", () => {
         slides: 0,
         propertyName: "",
         location: "",
+        isLocationValid: false,
+        currentLocation: null,
+        initialize() {
+            this.multipleSlide(2, true);
+            this.$watch("location", () => {
+                this.validateLocation();
+            });
+        },
+        validateLocation() {
+            const latestCities = City.LastCities;
+            console.log("opa", latestCities);
+
+            latestCities.forEach((lc) => {
+                if (lc.city == this.location) {
+                    this.isLocationValid = true;
+                    this.currentLocation = lc;
+                    return;
+                } else {
+                    this.currentLocation = null;
+                    this.isLocationValid = false;
+                }
+            });
+        },
         nextSlide(property) {
             if (property) this.propertySelection = property;
             this.slides += 1;
