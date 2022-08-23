@@ -26,7 +26,7 @@ class Cities {
     }
 
     async fetchCities(query) {
-        // Stopping the fetch so it doesnt spend my requests
+        // Stopping the fetch so it doesn't spend my requests
         // return;
 
         // Add Indicator
@@ -42,13 +42,13 @@ class Cities {
 
         const cities = [];
 
-        console.log(response);
-
         response.forEach((city) => {
             const info = {
                 id: city.id,
                 city: city.name,
                 country: city.country.name,
+                lat: city.coordinates.latitude,
+                lon: city.coordinates.longitude,
             };
 
             cities.push(info);

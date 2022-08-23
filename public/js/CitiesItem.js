@@ -16,8 +16,6 @@ class CitiesItem {
         this.callbacks.closeAllLists();
     }
 
-    noResults() {}
-
     refreshCities() {
         var a,
             b,
