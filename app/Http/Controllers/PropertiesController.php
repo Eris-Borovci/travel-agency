@@ -35,19 +35,31 @@ class PropertiesController extends Controller
      */
     public function store(Request $request)
     {
-        // Property::create([
-        //     "partner_id" => \Auth::user()->id,
-        //     "property_selection" => $request->property_selection,
-        //     "property_name" => $request->property_name,
-        //     "current_location" => json_encode($request->current_location),
-        //     "marker_location" => json_encode($request->marker_location),
-        //     "rooms_details" => json_encode($request->rooms_details),
-        //     "check_in" => $request->check_in,
-        //     "check_out" => $request->check_out,
-        //     "price" => $request->price
-        // ]);
+        $timestampIn = strtotime($request->get("check_in"));
+        $dateIn = date("Y-m-d", $timestampIn);
 
-        return json_encode(array("status" => $request->room_details));
+        $timestampOut = strtotime($request->get("check_out"));
+        $dateOut = date("Y-m-d", $timestampOut);
+
+        $property = new Property();
+
+        $property->partner_id = \Auth::user()->id;
+        $property->property_selection = $request->get("property_selection");
+        $property->property_name = $request->get("property_name");
+        $property->current_location = $request->get("current_location");
+        $property->marker_location = $request->get("marker_location");
+        $property->rooms_details = $request->get("rooms_details");
+        $property->check_in = $dateIn;
+        $property->check_out = $dateOut;
+        $property->price = $request->get("price");
+
+        $property->save();
+
+        $response = json_encode(array(
+            "status" => "finished",
+        ));
+
+        return $response;
     }
 
     /**

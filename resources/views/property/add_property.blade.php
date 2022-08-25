@@ -141,7 +141,7 @@
                             </div>
                             <x-divider />
                             <button class="bg-blue-800 text-white w-full px-2 py-3 rounded"
-                                @click="nextSlide">Continue</button>
+                                @click="nextSlide()">Continue</button>
                         </div>
                         <input type="hidden" value="20" x-ref="lat" id="lat">
                         <input type="hidden" value="20" x-ref="lon" id="lon">
