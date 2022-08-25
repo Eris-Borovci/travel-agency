@@ -66,7 +66,7 @@ class RegisterController extends Controller
             $user = $this->create($data);
             \Auth::login($user);
 
-            switch (Auth::user()->role) {
+            switch (\Auth::user()->role) {
                 case 'partner':
                     return redirect("/partner");
                     break;
