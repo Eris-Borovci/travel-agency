@@ -1,0 +1,21 @@
+.animate-wiggle {
+    animation: wiggle 1.2s alternate;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: translateX(0px);
+    }
+
+    25% {
+        transform: translateX(13px);
+    }
+
+    50% {
+        transform: translateX(-13px);
+    }
+
+    75% {
+        transform: translateX(0px);
+    }
+}

@@ -27,6 +27,10 @@ Route::get("/partner/register", function() {
     return view("partner.register");
 });
 
+Route::get("/test", function() {
+    return view("pages.test");
+});
+
 Route::resource('/partner', App\Http\Controllers\PartnerController::class)->middleware(ShouldPartner::class);
 Route::resource('/property', App\Http\Controllers\PropertiesController::class)->middleware(ShouldPartner::class);
 

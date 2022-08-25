@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="{{ asset('fontawesome-free-6.1.2-web/css/all.css') }}">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'public/js/fontawesome.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'public/js/fontawesome.js', 'node_modules/flowbite/dist/flowbite.js', 'node_modules/flowbite/dist/flowbite.css', 'node_modules/flowbite/dist/datepicker.js'])
+
 </head>
 
 <body class="{{ isset($overflow) ? 'overflow-y-hidden' : '' }} bg-gray-50">
@@ -37,8 +38,6 @@
     </footer>
 
     <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
-    <script src="https://unpkg.com/flowbite@1.5.2/dist/flowbite.js"></script>
-    <script src="https://unpkg.com/flowbite@1.5.2/dist/datepicker.js"></script>
 </body>
 
 </html>
