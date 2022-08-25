@@ -18,15 +18,15 @@ document.addEventListener("alpine:init", () => {
         selectedFiles: [], //Selected files from the inputs
         price: 0, // Property price
         initialize() {
-            this.multipleSlide(7, true);
+            // this.multipleSlide(7, true);
 
             // Setting today date to check in/out input
             const date = new Date();
             const today =
                 (date.getMonth() + 1).toString() +
-                "/" +
+                "-" +
                 date.getDate().toString() +
-                "/" +
+                "-" +
                 date.getFullYear().toString();
 
             this.$refs.checkIn.value = today;
@@ -45,7 +45,6 @@ document.addEventListener("alpine:init", () => {
             });
 
             this.$watch("slides", () => {
-                console.log(this.slides);
                 if (this.slides == 3) {
                     this.setMap();
                 }
@@ -95,9 +94,11 @@ document.addEventListener("alpine:init", () => {
                 }
             }
         },
-        nextSlide(property = false) {
-            if (property) this.propertySelection = property;
+        nextSlide(property = null) {
+            if (property != null) this.propertySelection = property;
+
             console.log(this.propertySelection);
+
             this.slides += 1;
             slide(slideNext);
         },
@@ -395,14 +396,12 @@ document.addEventListener("alpine:init", () => {
             formData.append("photos", this.selectedFiles);
             formData.append("price", this.price);
 
-            console.log(formData.getAll("property_name"));
-
             const request = await fetch("http://travel-agency.test/property", {
                 method: "POST",
                 body: formData,
             });
 
-            const response = await request.json();
+            const response = await request.text();
 
             console.log(response);
         },

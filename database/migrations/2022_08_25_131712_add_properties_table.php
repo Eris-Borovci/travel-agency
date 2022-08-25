@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create("properties", function($table) {
             $table->id();
             $table->foreignId("partner_id")->references("id")->on('users');
-            $table->string("property_selection");
-            $table->string("property_name");
+            $table->string("property_selection")->default("apartment");
+            $table->string("property_name")->default("New property");
             $table->json("current_location");
             $table->json("marker_location");
             $table->json("rooms_details");
