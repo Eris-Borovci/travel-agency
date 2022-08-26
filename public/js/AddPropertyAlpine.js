@@ -18,7 +18,7 @@ document.addEventListener("alpine:init", () => {
         selectedFiles: [], //Selected files from the inputs
         price: 0, // Property price
         initialize() {
-            // this.multipleSlide(7, true);
+            this.multipleSlide(7, true);
 
             // Setting today date to check in/out input
             const date = new Date();
@@ -47,8 +47,7 @@ document.addEventListener("alpine:init", () => {
             this.$watch("slides", () => {
                 if (this.slides == 3) {
                     this.setMap();
-                }
-                if (this.slides == 8) {
+                } else if (this.slides == 8) {
                     const video = document.getElementById("finished_animation");
                     video.load();
                     video.play();
@@ -96,8 +95,6 @@ document.addEventListener("alpine:init", () => {
         },
         nextSlide(property = null) {
             if (property != null) this.propertySelection = property;
-
-            console.log(this.propertySelection);
 
             this.slides += 1;
             slide(slideNext);
@@ -176,6 +173,8 @@ document.addEventListener("alpine:init", () => {
 
             marker.addEventListener("move", (e) => {
                 this.latlngMarkerLocation = e.target._latlng;
+                this.$refs.lat.value = e.target._latlng.lat;
+                this.$refs.lon.value = e.target._latlng.lng;
             });
         },
         removeMap() {

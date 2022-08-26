@@ -31,7 +31,7 @@ function autocomplete() {
 
     const fetch = debounce(() => {
         City.fetchCities(inp.value);
-    }, 500);
+    }, 250);
 
     /*execute a function when someone writes in the text field:*/
     inp.addEventListener("input", fetch);

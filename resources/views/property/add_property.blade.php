@@ -19,7 +19,7 @@
                 class="text-gray-700 max-w-4xl mx-auto text-2xl text-center md:text-start font-medium">List your property
             </h1>
             <div class="max-w-4xl mx-auto">
-                <div :class="slides > 0 ? '!visible' : 'invisible'" @click="prevSlide"
+                <div :class="slides > 0 && slides != 8 ? '!visible' : 'invisible'" @click="prevSlide"
                     class="cursor-pointer my-2 hover:bg-gray-200 p-1 inline-block rounded-md" style="visibility: hidden">
                     <svg class="h-8 w-8 text-gray-700" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -320,8 +320,10 @@
                                 </div>
                             </div>
                             <x-divider />
-                            <button class="bg-blue-800 text-white w-full px-2 py-3 rounded"
-                                @click="sendRequest()">Finish</button>
+                            <div class="flex text-center">
+                                <a href="/partner" class="bg-blue-800 text-white w-full px-2 py-3 rounded"
+                                    @click="redirect()">Finish</a>
+                            </div>
                         </div>
                     </div>
                 </div>
