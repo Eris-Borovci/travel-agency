@@ -52,6 +52,7 @@ class PropertiesController extends Controller
         $property->check_in = $dateIn;
         $property->check_out = $dateOut;
         $property->price = $request->get("price");
+        $property->max_people = $request->get("max_people");
 
         $property->save();
 

@@ -9,6 +9,7 @@ document.addEventListener("alpine:init", () => {
         currentLocation: {}, // The location picked { city, country, id, lanlng }
         latlngMarkerLocation: {}, // The lanlng from the marker
         map: null,
+        maxPeople: 1,
         roomsAmount: {
             bedroom: 0,
             livingRoom: 0,
@@ -18,7 +19,7 @@ document.addEventListener("alpine:init", () => {
         selectedFiles: [], //Selected files from the inputs
         price: 0, // Property price
         initialize() {
-            // this.multipleSlide(6, true);
+            this.multipleSlide(4, true);
 
             // Setting today date to check in/out input
             const date = new Date();
@@ -216,6 +217,11 @@ document.addEventListener("alpine:init", () => {
                     break;
             }
         },
+        peopleAmount(amount) {
+            if (this.maxPeople + amount >= 1) {
+                this.maxPeople += amount;
+            }
+        },
         validateRooms(shouldNext) {
             if (
                 this.roomsAmount.bedroom == 0 &&
@@ -396,6 +402,7 @@ document.addEventListener("alpine:init", () => {
                 "marker_location",
                 JSON.stringify(this.latlngMarkerLocation)
             );
+            formData.append("max_people", this.maxPeople);
             formData.append("rooms_details", JSON.stringify(this.roomsAmount));
             formData.append("check_in", this.$refs.checkIn.value);
             formData.append("check_out", this.$refs.checkOut.value);

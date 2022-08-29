@@ -153,6 +153,23 @@
                             <div class="bg-white py-5 px-8 mt-8 rounded">
                                 <div>
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Enter
+                                        the maximum people amount</label>
+                                    <div>
+                                        <div class="shadow-md p-4 mt-2 bg-gray-50 flex items-center justify-between">
+                                            <h1>Max people</h1>
+                                            <div class="flex items-center">
+                                                <button @click="peopleAmount(1)"
+                                                    class="py-1 px-3 hover:bg-gray-200 rounded-lg"><i
+                                                        class="fa-solid fa-plus text-gray-700"></i></button>
+                                                <h1 class="px-2" x-text="maxPeople">0</h1>
+                                                <button @click="peopleAmount(-1)"
+                                                    class="py-1 px-3 hover:bg-gray-200 rounded-lg"><i
+                                                        class="fa-solid fa-minus text-gray-700"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label
+                                        class="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Enter
                                         room's amount (you should have at least one room)</label>
                                     <div>
                                         <div class="shadow-md p-4 mt-2 bg-gray-50 flex items-center justify-between">
