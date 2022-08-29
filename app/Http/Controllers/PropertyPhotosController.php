@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Property;
+use App\Models\Photo;
 
-class PropertiesController extends Controller
+class PropertyPhotosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class PropertiesController extends Controller
      */
     public function create()
     {
-        return view("property.add_property");
+        //
     }
 
     /**
@@ -35,33 +35,27 @@ class PropertiesController extends Controller
      */
     public function store(Request $request)
     {
-        $timestampIn = strtotime($request->get("check_in"));
-        $dateIn = date("Y-m-d", $timestampIn);
+        // Getting the files info
+        $file = $request->file('File');
+        $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $fileExtension = $file->getClientOriginalExtension();
+        $filepath = $filename . "_" . time() . "_." . $fileExtension;
+        
+        // Storing the file to local disk
+        $store = $request->file("File")->storeAs("public/property_photos", $filepath);
 
-        $timestampOut = strtotime($request->get("check_out"));
-        $dateOut = date("Y-m-d", $timestampOut);
+        // Saving the photo details to db
+        $photo = new Photo();
+        $photo->property_id = $request->get("property_id");
+        $photo->photo_name = $filename;
+        $photo->photo_path = $filepath;
+        $photo->save();
 
-        $property = new Property();
-
-        $property->partner_id = \Auth::user()->id;
-        $property->property_selection = $request->get("property_selection");
-        $property->property_name = $request->get("property_name");
-        $property->current_location = $request->get("current_location");
-        $property->marker_location = $request->get("marker_location");
-        $property->rooms_details = $request->get("rooms_details");
-        $property->check_in = $dateIn;
-        $property->check_out = $dateOut;
-        $property->price = $request->get("price");
-
-        $property->save();
-
-        $response = json_encode(array(
+        $response = array(
             "status" => "finished",
-            "request" => $request->all(),
-            "property_id" => $property->id,
-        ));
+        );
 
-        return $response;
+        return json_encode($response);
     }
 
     /**

@@ -11,7 +11,7 @@
         <div x-data="property" x-init="initialize">
             <div class="max-w-4xl mx-auto bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700">
                 <div :class="slides == maxSlides && 'bg-green-600'"
-                    class="bg-blue-600 h-1.5 rounded-full dark:bg-blue-500 transition-all"
+                    class=" w-0 bg-blue-600 h-1.5 rounded-full dark:bg-blue-500 transition-all"
                     :style="{ width: getProgress() }">
                 </div>
             </div>

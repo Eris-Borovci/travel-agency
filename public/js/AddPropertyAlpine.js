@@ -18,7 +18,7 @@ document.addEventListener("alpine:init", () => {
         selectedFiles: [], //Selected files from the inputs
         price: 0, // Property price
         initialize() {
-            this.multipleSlide(7, true);
+            // this.multipleSlide(6, true);
 
             // Setting today date to check in/out input
             const date = new Date();
@@ -249,8 +249,10 @@ document.addEventListener("alpine:init", () => {
             return false;
         },
         getSelectedFiles() {
+            this.selectedFiles = [];
+
             const inputs = document.querySelectorAll(".filesGroup input");
-            const files = [];
+            let files = [];
 
             inputs.forEach((inp) => {
                 if (inp.files.length > 0) {
@@ -378,6 +380,11 @@ document.addEventListener("alpine:init", () => {
         async sendRequest(next = false) {
             if (next) this.nextSlide();
 
+            // Fetching all files
+            const f = document.querySelectorAll(".filesGroup input");
+            console.log(f[0].files[0]);
+
+            // The property details form data
             const formData = new FormData();
             formData.append("property_selection", this.propertySelection);
             formData.append("property_name", this.propertyName);
@@ -392,17 +399,44 @@ document.addEventListener("alpine:init", () => {
             formData.append("rooms_details", JSON.stringify(this.roomsAmount));
             formData.append("check_in", this.$refs.checkIn.value);
             formData.append("check_out", this.$refs.checkOut.value);
-            formData.append("photos", this.selectedFiles);
             formData.append("price", this.price);
 
+            // Sending the requests
             const request = await fetch("http://travel-agency.test/property", {
                 method: "POST",
                 body: formData,
             });
 
-            const response = await request.text();
+            const response = await request.json();
 
             console.log(response);
+            // The property photo form data
+            let photosError = false;
+
+            for (let i = 0; i < f.length; i++) {
+                const photosFormData = new FormData();
+                photosFormData.append("File", f[i].files[0]);
+                photosFormData.append("property_id", response.property_id);
+
+                const photoRequest = await fetch(
+                    "http://travel-agency.test/photos",
+                    {
+                        method: "POST",
+                        body: photosFormData,
+                    }
+                );
+
+                const photoResponse = await photoRequest.json();
+
+                if (photoResponse.status != "finished") {
+                    photosError = true;
+                    break;
+                }
+            }
+
+            if (photosError) {
+                // Do something if saving the photos fails
+            }
         },
     }));
 });

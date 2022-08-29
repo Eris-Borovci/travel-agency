@@ -33,6 +33,7 @@ Route::get("/test", function() {
 
 Route::resource('/partner', App\Http\Controllers\PartnerController::class)->middleware(ShouldPartner::class);
 Route::resource('/property', App\Http\Controllers\PropertiesController::class)->middleware(ShouldPartner::class);
+Route::resource('/photos', App\Http\Controllers\PropertyPhotosController::class);
 
 Auth::routes(["verify" => true]);
 
