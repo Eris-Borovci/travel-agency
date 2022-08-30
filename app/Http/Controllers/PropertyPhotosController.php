@@ -49,6 +49,11 @@ class PropertyPhotosController extends Controller
         $photo->property_id = $request->get("property_id");
         $photo->photo_name = $filename;
         $photo->photo_path = $filepath;
+        if($request->get("is_main") == null) {
+            $photo->is_main = 0;
+        } else {
+            $photo->is_main = $request->get("is_main");
+        }
         $photo->save();
 
         $response = array(

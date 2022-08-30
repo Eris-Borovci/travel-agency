@@ -15,11 +15,13 @@ document.addEventListener("alpine:init", () => {
             livingRoom: 0,
             bathroom: 0,
         }, // Rooms amount by the 4th slide
-        numberOfInputs: 0,
         selectedFiles: [], //Selected files from the inputs
         price: 0, // Property price
+        imageLength: 0,
+        mainPhoto: null,
+        areFilesValid: false,
         initialize() {
-            this.multipleSlide(4, true);
+            this.multipleSlide(6, true);
 
             // Setting today date to check in/out input
             const date = new Date();
@@ -59,8 +61,6 @@ document.addEventListener("alpine:init", () => {
                     this.removeMap();
                 }
             });
-
-            this.addFileInput();
 
             this.addEventFilesInputs();
         },
@@ -270,125 +270,207 @@ document.addEventListener("alpine:init", () => {
 
             return files;
         },
-        addFileInput() {
-            this.refreshNumberOfInputs();
+        addEventFilesInputs() {
+            const input = document.querySelector("#dropzone-file");
+            const dropZone = document.querySelector("#the-drop-zone");
 
-            let lastInput = document.querySelectorAll(".filesGroup input");
-            lastInput = lastInput[lastInput.length - 1];
+            const files = [];
+            const callback = (value) => {
+                files.push(value);
+                this.selectedFiles = files;
+            };
 
-            if (lastInput != undefined && lastInput.files.length == 0) {
-                this.$refs.addFileBtn.setAttribute("disabled", true);
-                lastInput.classList.add("animate-wiggle");
-                setTimeout(() => {
-                    this.$refs.addFileBtn.removeAttribute("disabled");
-                    lastInput.classList.remove("animate-wiggle");
-                }, 1200);
-                return;
+            input.addEventListener("change", () => {
+                this.renderImage(input.files, callback);
+                this.validatePhotos();
+            });
+
+            dropZone.addEventListener("dragleave", (e) => {
+                e.preventDefault();
+                dropZone.classList.remove("scale-110");
+            });
+
+            dropZone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZone.classList.add("scale-110");
+            });
+
+            dropZone.addEventListener("drop", (e) => {
+                e.preventDefault();
+                dropZone.classList.remove("scale-110");
+                this.renderImage(e.dataTransfer.files, callback);
+                this.validatePhotos();
+            });
+        },
+        validateImages(images) {},
+        addImage(blobData, theFile) {
+            this.imageLength += 1;
+            document
+                .querySelector(".filesGroup")
+                .prepend(this.createNewImageTemplate(blobData, theFile));
+        },
+        renderImage(fileList, callback) {
+            const filesLength = fileList.length;
+            if (filesLength > 0) {
+                for (let i = 0; i < filesLength; i++) {
+                    callback(fileList[i]);
+
+                    const reader = new FileReader();
+                    reader.addEventListener("load", (e) => {
+                        this.addImage(e.target.result, fileList[i]);
+                    });
+                    reader.readAsDataURL(fileList[i]);
+                }
             }
-
-            const template = this.createInputTemplate();
-
-            document.querySelector(".filesGroup").append(template);
-
-            this.addEventFilesInputs();
         },
-        removeFileInput(input) {
-            const activeInputs = document.querySelectorAll(".filesGroup input");
-            const removeBtn =
-                document.querySelectorAll(".filesGroup button")[0];
+        createNewImageTemplate(blob, theFile) {
+            const mainContainer = document.createElement("div");
+            mainContainer.classList.add(
+                "h-48",
+                `main-image-container-${this.imageLength}`,
+                "relative"
+            );
 
-            // Checking if there is only one input
-            if (activeInputs.length <= 1) {
-                activeInputs[0].classList.add("animate-wiggle");
-                removeBtn.setAttribute("disabled", true);
-                activeInputs;
-                setTimeout(() => {
-                    activeInputs[0].classList.remove("animate-wiggle");
-                    removeBtn.removeAttribute("disabled");
-                }, 1200);
-                return;
-            }
+            mainContainer.addEventListener("click", () => {
+                this.mainPhoto = this.getMainPhotosIndex();
+                this.validatePhotos();
+            });
 
-            const filesContainerChild =
-                document.querySelector(".filesGroup").children[input];
-
-            filesContainerChild.classList.add("hidden");
-            filesContainerChild.innerHTML = "";
-        },
-        refreshNumberOfInputs() {
-            const filesGroup = document.querySelectorAll(".filesGroup > div");
-
-            this.numberOfInputs = filesGroup.length;
-        },
-        createInputTemplate() {
-            const inputContainer = document.createElement("div");
-            inputContainer.classList.add(
+            const removeButton = document.createElement("div");
+            removeButton.classList.add(
+                "absolute",
                 "flex",
                 "justify-center",
-                "items-center"
-            );
-            inputContainer.id = `file_input_${this.numberOfInputs}`;
-
-            const theInput = document.createElement("input");
-            theInput.classList.add(
-                "my-1.5",
-                "block",
-                "w-full",
-                "text-sm",
-                "text-gray-900",
-                "bg-gray-50",
-                "rounded-lg",
-                "border",
-                "border-gray-300",
-                "cursor-pointer",
-                "focus:outline-none"
-            );
-            theInput.setAttribute("aria-describedby", "file_input_help");
-            theInput.type = "file";
-            theInput.id = this.numberOfInputs;
-            inputContainer.append(theInput);
-
-            const theSpacer = document.createElement("div");
-            theSpacer.classList.add("spacer", "px-2");
-            inputContainer.append(theSpacer);
-
-            const theRemoveBtn = document.createElement("button");
-            theRemoveBtn.type = "button";
-            theRemoveBtn.setAttribute(
-                "x-on:click",
-                `removeFileInput(${this.numberOfInputs})`
-            );
-            theRemoveBtn.classList.add(
-                "h-7",
-                "w-7",
-                "border-gray-700",
+                "items-center",
+                "-top-2",
+                "-right-2",
+                "w-5",
+                "h-5",
+                "rounded-full",
                 "border-2",
-                "rounded-full"
+                "border-gray-600",
+                "bg-white",
+                "text-sm"
+            );
+            removeButton.innerHTML =
+                '<i class="fa-solid fa-x text-gray-600"></i>';
+            removeButton.setAttribute(
+                "x-on:click",
+                `removePhoto(${this.imageLength})`
+            );
+            mainContainer.append(removeButton);
+
+            const newFileList = new DataTransfer();
+            newFileList.items.add(theFile);
+
+            const fileInputValue = document.createElement("input");
+            fileInputValue.type = "file";
+            fileInputValue.classList.add("hidden");
+            fileInputValue.files = newFileList.files;
+            mainContainer.append(fileInputValue);
+
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.value = "";
+            radio.name = "main-photo";
+            radio.id = `image-option-${this.imageLength}`;
+            radio.classList.add("hidden", "peer");
+
+            const container = document.createElement("label");
+            container.setAttribute("for", `image-option-${this.imageLength}`);
+            container.classList.add(
+                "w-full",
+                "h-48",
+                "rounded-lg",
+                "overflow-hidden",
+                "border-2",
+                "inline-flex",
+                "align-center",
+                "justify-center",
+                "peer-checked:border-blue-600"
             );
 
-            const theIcon = document.createElement("i");
-            theIcon.classList.add("fa-solid", "fa-minus", "text-gray-70");
-            theRemoveBtn.append(theIcon);
+            const imgContainer = document.createElement("div");
+            const img = document.createElement("img");
+            img.classList.add("w-full", "h-full");
+            img.src = blob;
 
-            inputContainer.append(theRemoveBtn);
+            imgContainer.append(img);
 
-            return inputContainer;
+            container.append(imgContainer);
+
+            mainContainer.append(radio);
+            mainContainer.append(container);
+
+            return mainContainer;
         },
-        addEventFilesInputs() {
-            const inputs = document.querySelectorAll(".filesGroup input");
+        removePhoto(index) {
+            const container = document.querySelector(
+                `.main-image-container-${index}`
+            );
 
-            inputs.forEach((input) => {
-                input.addEventListener("change", () => {
-                    this.checkFiles();
-                });
+            this.getPhotos();
+
+            this.imageLength -= 1;
+            container.parentElement.removeChild(container);
+        },
+        getMainPhotosIndex() {
+            const radioInputs = document.querySelectorAll(
+                ".filesGroup > .relative input[type='radio']"
+            );
+
+            let index = 0;
+
+            radioInputs.forEach((ri) => {
+                if (ri.checked == true) {
+                    index = ri.id.substr(ri.id.length - 1);
+                }
             });
+
+            return index;
+        },
+        getPhotos() {
+            let main = null;
+            const mainPhotoClass = `.main-image-container-${this.getMainPhotosIndex()}`;
+            const photos = [];
+
+            // Assigning the main photo
+            const mainPhoto = document.querySelector(
+                `${mainPhotoClass} > input[type='file']`
+            );
+
+            if (mainPhoto != null) {
+                main = mainPhoto.files[0];
+            }
+
+            // Assigning other photos than are not main
+            const photosInputs = document.querySelectorAll(
+                ".filesGroup > .relative > input[type='file']"
+            );
+
+            photosInputs.forEach((pi) => {
+                if (
+                    !pi.parentElement.classList.contains(
+                        mainPhotoClass.substring(1)
+                    )
+                ) {
+                    photos.push(pi.files[0]);
+                }
+            });
+
+            const allPhotos = { main, photos };
+
+            return allPhotos;
+        },
+        validatePhotos() {
+            if (this.getPhotos().main == null) {
+                return (this.areFilesValid = false);
+            }
+
+            this.areFilesValid = true;
         },
         async sendRequest(next = false) {
             if (next) this.nextSlide();
-
-            // Fetching all files
-            const f = document.querySelectorAll(".filesGroup input");
-            console.log(f[0].files[0]);
 
             // The property details form data
             const formData = new FormData();
@@ -416,14 +498,36 @@ document.addEventListener("alpine:init", () => {
 
             const response = await request.json();
 
-            console.log(response);
             // The property photo form data
             let photosError = false;
+            const f = this.getPhotos();
 
-            for (let i = 0; i < f.length; i++) {
+            // return;
+            const mainPhotoFormData = new FormData();
+            mainPhotoFormData.append("File", f.main);
+            mainPhotoFormData.append("property_id", response.property_id);
+            mainPhotoFormData.append("is_main", 1);
+            const mainPhotoRequest = await fetch(
+                "http://travel-agency.test/photos",
+                {
+                    method: "POST",
+                    body: mainPhotoFormData,
+                }
+            );
+
+            const mainPhotoResponse = await mainPhotoRequest.text();
+
+            console.log("Main Photo", mainPhotoResponse);
+
+            if (mainPhotoResponse.status != "finished") {
+                photosError = true;
+            }
+
+            for (let i = 0; i < f.photos.length; i++) {
                 const photosFormData = new FormData();
-                photosFormData.append("File", f[i].files[0]);
+                photosFormData.append("File", f.photos[i]);
                 photosFormData.append("property_id", response.property_id);
+                mainPhotoFormData.append("is_main", 0);
 
                 const photoRequest = await fetch(
                     "http://travel-agency.test/photos",
@@ -433,7 +537,8 @@ document.addEventListener("alpine:init", () => {
                     }
                 );
 
-                const photoResponse = await photoRequest.json();
+                const photoResponse = await photoRequest.text();
+                console.log("Photos", photoResponse);
 
                 if (photoResponse.status != "finished") {
                     photosError = true;
