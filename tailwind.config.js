@@ -15,8 +15,15 @@ module.exports = {
         "animate-spin",
         "px-3",
         "absolute",
+        "peer",
         "overflow-y-hidden",
         "animate-wiggle",
+        "peer-checked:border",
+        "peer-checked:border-blue-600",
+        "border-gray-400",
+        "p-2",
+        "text-sm",
+        "scale-110",
     ],
     theme: {
         colors: {
