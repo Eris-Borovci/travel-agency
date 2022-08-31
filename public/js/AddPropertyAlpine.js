@@ -21,8 +21,6 @@ document.addEventListener("alpine:init", () => {
         mainPhoto: null,
         areFilesValid: false,
         initialize() {
-            this.multipleSlide(6, true);
-
             // Setting today date to check in/out input
             const date = new Date();
             const today =

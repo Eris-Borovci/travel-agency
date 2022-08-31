@@ -11,7 +11,25 @@
                         property</a>
                 </div>
                 <div class="properties my-7">
-                    <x-property image="http://travel-agency.test/images/prop-img.jpg" title="New property" />
+                    @if (count($partner->properties) < 1)
+                        <x-property image="http://travel-agency.test/images/prop-img.jpg" title="New property setup"
+                            redirect="/property/create" />
+                    @else
+                        @foreach ($partner->properties as $property)
+                            @php
+                                $mainPath = null;
+                                
+                                foreach ($property->photos as $photo) {
+                                    if ($photo['is_main'] == 1) {
+                                        $mainPath = $photo['photo_path'];
+                                    }
+                                }
+                            @endphp
+
+                            <x-property image="/storage/property_photos/{{ $mainPath }}"
+                                title="{{ $property->property_name }}" redirect="/property/{{ $property->id }}" />
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

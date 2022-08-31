@@ -14,4 +14,8 @@ class Photo extends Model
     protected $fillable = [
         "property_id"
     ];
+
+    function property() {
+        return $this->belongsTo(Property::class, 'id');
+    }
 }

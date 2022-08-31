@@ -12,4 +12,12 @@ class Property extends Model
     protected $fillable = [
         'partner_id',
     ];
+
+    function partner(){
+        return $this->belongsTo(User::class, 'id');
+    }
+
+    function photos(){
+        return $this->hasMany(Photo::class, 'property_id');
+    }
 }

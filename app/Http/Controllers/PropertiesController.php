@@ -14,7 +14,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -73,7 +73,7 @@ class PropertiesController extends Controller
      */
     public function show($id)
     {
-        //
+        return $id;
     }
 
     /**

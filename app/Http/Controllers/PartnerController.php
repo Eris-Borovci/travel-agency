@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class PartnerController extends Controller
 {
@@ -13,7 +14,8 @@ class PartnerController extends Controller
      */
     public function index()
     {
-        return view("partner.index");
+        $user = User::find(\Auth::user()->id);
+        return view("partner.index")->with("partner", $user);
     }
 
     /**

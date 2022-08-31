@@ -8,16 +8,18 @@ class Property extends Component
 {
     public $image;
     public $title;
+    public $redirect;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($image, $title)
+    public function __construct($image, $title, $redirect)
     {
         $this->image = $image;
         $this->title = $title;
+        $this->redirect = $redirect;
     }
 
     /**
