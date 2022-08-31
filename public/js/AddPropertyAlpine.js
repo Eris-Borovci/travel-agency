@@ -521,6 +521,8 @@ document.addEventListener("alpine:init", () => {
                 photosError = true;
             }
 
+            console.log("the length", f.photos.length);
+
             for (let i = 0; i < f.photos.length; i++) {
                 const photosFormData = new FormData();
                 photosFormData.append("File", f.photos[i]);
@@ -535,7 +537,7 @@ document.addEventListener("alpine:init", () => {
                     }
                 );
 
-                const photoResponse = await photoRequest.text();
+                const photoResponse = await photoRequest.json();
                 console.log("Photos", photoResponse);
 
                 if (photoResponse.status != "finished") {

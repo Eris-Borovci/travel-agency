@@ -44,6 +44,14 @@ return [
             'throw' => false,
         ],
 
+        'property_photos' => [
+            'driver' => 'local',
+            'root' => storage_path("app/public/property_photos"),
+            'url' => env('APP_URL').'/storage/property_photos',
+            'visibility' => 'public',
+            'throw' => false
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
