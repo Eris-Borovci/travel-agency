@@ -17,16 +17,13 @@
                     @else
                         @foreach ($partner->properties as $property)
                             @php
-                                $mainPath = null;
-                                
-                                foreach ($property->photos as $photo) {
-                                    if ($photo['is_main'] == 1) {
-                                        $mainPath = $photo['photo_path'];
-                                    }
-                                }
+                                $mainPath = $property
+                                    ->photos()
+                                    ->where('is_main', 1)
+                                    ->first()['photo_path'];
                             @endphp
 
-                            <x-property image="/storage/property_photos/{{ $mainPath }}"
+                            <x-property image="{{ Storage::url('property_photos/' . $mainPath) }}"
                                 title="{{ $property->property_name }}" redirect="/property/{{ $property->id }}" />
                         @endforeach
                     @endif

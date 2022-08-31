@@ -73,7 +73,8 @@ class PropertiesController extends Controller
      */
     public function show($id)
     {
-        return $id;
+        $property = Property::find($id);
+        return view("property.show_property")->with('property', $property);
     }
 
     /**

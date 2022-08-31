@@ -31,6 +31,10 @@ module.exports = {
             "primary-darker": "#1f98fa",
             secondary: "#febb02",
         },
-        extend: {},
+        extend: {
+            zIndex: {
+                999: "999",
+            },
+        },
     },
 };
