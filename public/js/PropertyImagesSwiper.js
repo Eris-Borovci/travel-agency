@@ -10,9 +10,4 @@ const propertySwiper = new Swiper(".property-swiper", {
     pagination: {
         el: ".property-pagination",
     },
-    breakpoints: {
-        768: {
-            rewind: true,
-        },
-    },
 });
