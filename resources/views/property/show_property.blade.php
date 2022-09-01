@@ -106,7 +106,7 @@ switch ($property->property_selection) {
                 </div>
 
                 <div id="tabs">
-                    <div id="images-tab" class="mt-5 tab-slide hidden">
+                    <div id="images-tab" class="mt-5 tab-slide">
                         {{-- <h1 class="font-semibold">Images</h1> --}}
                         <div class="relative">
                             <div class="property-swiper mt-3 overflow-hidden relative">
@@ -142,7 +142,7 @@ switch ($property->property_selection) {
                             $useMarker = $current_location;
                         }
                     @endphp
-                    <div class="mt-5 tab-slide" id="location-tab">
+                    <div class="mt-5 tab-slide invisible" id="location-tab">
                         <div class="mt-3 relative">
                             <div id="map" class="h-64 w-full"></div>
                             <div id="relocate" class="absolute bottom-6 bg-white p-2 rounded border border-gray-300 z-999">

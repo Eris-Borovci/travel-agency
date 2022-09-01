@@ -62,9 +62,9 @@ document.addEventListener("alpine:init", () => {
                         .querySelector(`#tabs > #${tab.el}`)
                         .classList.remove("hidden");
                 } else {
-                    document
-                        .querySelector(`#tabs > #${tab.el}`)
-                        .classList.add("hidden");
+                    const other = document.querySelector(`#tabs > #${tab.el}`);
+                    other.classList.add("hidden");
+                    other.classList.remove("invisible");
                 }
             }
         },
