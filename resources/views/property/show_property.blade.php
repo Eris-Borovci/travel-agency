@@ -15,33 +15,21 @@ $otherImages = $property
     ->photos()
     ->where('is_main', 0)
     ->get();
+
+$icon = '';
+
+switch ($property->property_selection) {
+    case 'apartment':
+        $icon = 'building';
+        break;
+    default:
+        $icon = 'house';
+        break;
+}
 @endphp
 
 @section('content')
-    <style>
-        #relocate {
-            left: 10px;
-        }
-
-        .swiper-button-next {
-            right: -40px;
-            font-size: 20px;
-        }
-
-        .swiper-button-prev {
-            left: -40px;
-            font-size: 20px;
-        }
-
-        .swiper-button-lock {
-            opacity: 0.5;
-        }
-
-        .swiper-button-next::after,
-        .swiper-button-prev::after {
-            content: '';
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/propertyShow.css') }}">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
         integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
@@ -58,40 +46,23 @@ $otherImages = $property
                 <div class="col-span-12 row-start-1 md:col-span-7">
                     <h1 class="font-semibold text-2xl py-2 md:px-5">
                         <span>
-                            @if ($property->property_selection == 'apartment')
-                                <i class="fa-solid fa-building-user"></i>
-                            @else
-                                <i class="fa-solid fa-house-user"></i>
-                            @endif
+                            <i class="fa-solid fa-{{ $icon }}-user"></i>
                         </span>
                         {{ ucfirst($property->property_name) }}
                     </h1>
                 </div>
                 <div class="col-span-12 self-end md:col-span-7 md:row-start-2 mt-5 text-xl text-gray-800">
                     <div class="check-in-out py-3 md:!py-0 md:px-5">
-                        @if ($property->property_selection == 'apartment')
-                            <div class="check-in flex items-center py-1">
-                                <i class="fa-solid fa-building-circle-check text-green-600"></i>
-                                <p class="px-2 text-lg">Check in from <span
-                                        class="font-semibold">{{ $property->check_in }}</span></p>
-                            </div>
-                            <div class="check-out flex items-center py-1">
-                                <i class="fa-solid fa-building-circle-xmark text-red-500"></i>
-                                <p class="px-2 text-lg">Check out on <span
-                                        class="font-semibold">{{ $property->check_out }}</span></p>
-                            </div>
-                        @else
-                            <div class="check-in flex items-center py-1">
-                                <i class="fa-solid fa-house-circle-check text-green-600"></i>
-                                <p class="px-2 text-lg">Check in from <span
-                                        class="font-semibold">{{ $property->check_in }}</span></p>
-                            </div>
-                            <div class="check-out flex items-center py-1">
-                                <i class="fa-solid fa-house-circle-xmark text-red-500"></i>
-                                <p class="px-2 text-lg">Check out on <span
-                                        class="font-semibold">{{ $property->check_out }}</span></p>
-                            </div>
-                        @endif
+                        <div class="check-in flex items-center py-1">
+                            <i class="fa-solid fa-{{ $icon }}-circle-check text-green-600"></i>
+                            <p class="px-2 text-lg">Check in from <span
+                                    class="font-semibold">{{ $property->check_in }}</span></p>
+                        </div>
+                        <div class="check-out flex items-center py-1">
+                            <i class="fa-solid fa-{{ $icon }}-circle-xmark text-red-500"></i>
+                            <p class="px-2 text-lg">Check out on <span
+                                    class="font-semibold">{{ $property->check_out }}</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,48 +118,8 @@ $otherImages = $property
         crossorigin=""></script>
     <script>
         const marker_coords = {!! json_encode($useMarker) !!};
-        if (marker_coords.lon == undefined) {
-            marker_coords.lon = marker_coords.lng;
-        }
-
-        const map = L.map("map").setView([marker_coords.lat, marker_coords.lon], 10);
-
-        L.tileLayer(
-            "https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=ssVRaMfqFIYA1Om5wsEo", {
-                attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-            }
-        ).addTo(map);
-
-        let marker = L.marker(
-            [marker_coords.lat, marker_coords.lon], {
-                draggable: false,
-            }
-        ).addTo(map);
-
-        document.querySelector("#relocate").addEventListener("click", () => {
-            map.setView([marker_coords.lat, marker_coords.lon], 17);
-        });
     </script>
-
+    <script src="{{ asset('js/PropertyLocationMap.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script>
-        const propertySwiper = new Swiper(".property-swiper", {
-            slidesPerView: 3,
-            slidesPerGroup: 2,
-            spaceBetween: 20,
-            rewind: false,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-                el: '.property-pagination',
-            },
-            breakpoints: {
-                768: {
-                    rewind: true
-                }
-            }
-        })
-    </script>
+    <script src="{{ asset('js/PropertyImagesSwiper.js') }}"></script>
 @endsection
