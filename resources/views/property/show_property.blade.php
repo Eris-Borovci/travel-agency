@@ -38,7 +38,16 @@ switch ($property->property_selection) {
         crossorigin="" />
 
 
-    <div class="max-w-4xl mx-auto mt-12">
+    <div class="max-w-4xl mx-auto mt-10">
+        <div class="rounded mx-4 mb-2 flex justify-end" id="tools">
+            @if (isset(Auth::user()->role) and Auth::user()->role == 'partner' and Auth::user()->id == $property->partner_id)
+                <a href="/property/{{ $property->id }}/edit"
+                    class="hover:bg-gray-200 transition-all rounded bg-gray-100 p-2 cursor-pointer">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Edit
+                </a>
+            @endif
+        </div>
         <div class="mx-4 text-xl text-gray-800">
             <div class="grid grid-cols-12" id="header">
                 <div
@@ -80,23 +89,6 @@ switch ($property->property_selection) {
                                         class="font-semibold">{{ $property->check_out }}</span></p>
                             </div>
                         </div>
-                        {{-- <div class="check-in py-1">
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-bed"></i>
-                                <p class="px-2 text-lg">Bedrooms <span class="font-semibold">{{ $rooms->bedroom }}</span>
-                                </p>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-bed"></i>
-                                <p class="px-2 text-lg">Bedrooms <span class="font-semibold">{{ $rooms->bedroom }}</span>
-                                </p>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-bed"></i>
-                                <p class="px-2 text-lg">Bedrooms <span class="font-semibold">{{ $rooms->bedroom }}</span>
-                                </p>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
