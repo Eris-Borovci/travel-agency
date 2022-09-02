@@ -1,0 +1,22 @@
+#relocate {
+    left: 10px;
+}
+
+.swiper-button-next {
+    right: -40px;
+    font-size: 20px;
+}
+
+.swiper-button-prev {
+    left: -40px;
+    font-size: 20px;
+}
+
+.swiper-button-lock {
+    opacity: 0.5;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    content: "";
+}

@@ -24,6 +24,9 @@ module.exports = {
         "p-2",
         "text-sm",
         "scale-110",
+        "!text-blue-600",
+        "!border-blue-600",
+        "!flex",
     ],
     theme: {
         colors: {
