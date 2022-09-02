@@ -45,6 +45,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     function properties() {
-        return $this->hasMany(Property::class, 'partner_id');
+        return $this->hasMany(Property::class, 'partner_id')->orderBy("updated_at", "DESC");
     }
 }

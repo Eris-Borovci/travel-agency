@@ -26,6 +26,7 @@ module.exports = {
         "scale-110",
         "!text-blue-600",
         "!border-blue-600",
+        "!flex",
     ],
     theme: {
         colors: {

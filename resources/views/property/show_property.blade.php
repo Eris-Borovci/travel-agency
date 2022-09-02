@@ -64,19 +64,19 @@ switch ($property->property_selection) {
                         <div class="check-in flex items-center py-1">
                             <i class="fa-solid fa-people-roof"></i>
                             <div>
-                                <p class="px-2 text-lg " style="vertical-align: end">Max people <span
+                                <p class="px-2 text-base " style="vertical-align: end">Max people <span
                                         class="font-semibold">{{ $property->max_people }}</span></p>
                             </div>
                         </div>
                         <div>
                             <div class="check-in flex items-center py-1">
                                 <i class="fa-solid fa-{{ $icon }}-circle-check text-green-600"></i>
-                                <p class="px-2 text-lg">Check in from <span
+                                <p class="px-2 text-base">Check in from <span
                                         class="font-semibold">{{ $property->check_in }}</span></p>
                             </div>
                             <div class="check-out flex items-center py-1">
                                 <i class="fa-solid fa-{{ $icon }}-circle-xmark text-red-500"></i>
-                                <p class="px-2 text-lg">Check out on <span
+                                <p class="px-2 text-base">Check out on <span
                                         class="font-semibold">{{ $property->check_out }}</span></p>
                             </div>
                         </div>
@@ -101,7 +101,7 @@ switch ($property->property_selection) {
                 </div>
             </div>
 
-            <div x-data="tabs" x-init="addTabs([{ name: 'images', icon: 'fa-image', title: 'Images', el: 'images-tab' }, { name: 'location', icon: 'fa-location-dot', title: 'Location', el: 'location-tab' }], 'images')">
+            <div x-data="tabs" x-init="addTabs([{ name: 'images', icon: 'fa-image', title: 'Images', el: 'images-tab' }, { name: 'location', icon: 'fa-location-dot', title: 'Location', el: 'location-tab' }, { name: 'room-details', icon: 'fa-circle-info', title: 'Rooms', el: 'room-details-tab' }], 'images')">
                 <div id="main-tab-container">
                 </div>
 
@@ -150,9 +150,34 @@ switch ($property->property_selection) {
                             </div>
                         </div>
                     </div>
+                    {{-- Room details --}}
                     <div class="mt-5 tab-slide" id="room-details-tab">
                         <div class="mt-3 relative">
+                            <div class="bg-gray-100 md:flex items-center justify-center">
+                                <div
+                                    class="grid grid-cols-12 gap-10 md:gap-2 py-3 md:py-0 border border-gray-200 md:flex-grow md:grid-cols-none md:flex items-center justify-center">
+                                    <i class="fa-solid fa-couch text-xl col-start-2 col-end-3"></i>
+                                    <p class="col-span-10">
+                                        {{ $rooms->livingRoom > 0 ? $rooms->livingRoom . ' Living room' . ($rooms->livingRoom > 1 ? 's' : '') : 'No living room' }}
+                                    </p>
+                                </div>
 
+                                <div
+                                    class="grid grid-cols-12 gap-10 md:gap-2 py-3 md:py-0 border border-gray-200 md:flex flex-grow md:items-center justify-center">
+                                    <i class="fa-solid fa-bed col-start-2 col-end-3"></i>
+                                    <p class="col-span-10">
+                                        {{ $rooms->bedroom > 0 ? $rooms->bedroom . ' Bedroom' . ($rooms->bedroom > 1 ? 's' : '') : 'No bedrooms' }}
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="grid grid-cols-12 gap-10 md:gap-2 py-3 md:py-0 border border-gray-200 md:flex flex-grow md:items-center justify-center">
+                                    <i class="fa-solid fa-bath col-start-2 col-end-3 text-2xl"></i>
+                                    <p class="col-span-10">
+                                        {{ $rooms->bathroom > 0 ? $rooms->bathroom . ' Bathroom' . ($rooms->bathroom > 1 ? 's' : '') : 'No bathrooms' }}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
