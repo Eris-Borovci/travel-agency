@@ -1,5 +1,11 @@
 <div class="max-w-4xl mx-auto mt-12 bg-white p-3 rounded">
-    <h1 class="px-2 py-4 font-semibold text-xl">Property details</h1>
+    <div class="flex justify-between items-center">
+        <h1 class="px-2 py-4 font-semibold text-xl">Property details</h1>
+        <div wire:click="reset_values()" class="flex items-center cursor-pointer">
+            <i class="fa-solid fa-retweet text-xl mr-1"></i>
+            <h1 class="font-semibold">Reset</h1>
+        </div>
+    </div>
     <form class="p-2" action="/property/{{ $property->id }}" method="POST">
         @csrf
         @method('PUT')
@@ -9,9 +15,8 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Property name</label>
                 <div class="flex items-center justify-center">
                     <input name="property_name" type="text" id="property_name"
-                        class="bg-gray-50 border mr-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         required="" wire:model="property_name" wire:model="property_name">
-                    <div wire:click="reset_value('property_name')"><i class="fa-solid fa-retweet"></i></div>
                 </div>
             </div>
             <div>
@@ -20,7 +25,7 @@
                     selection</label>
                 <div class="flex items-center justify-center">
                     <select id="property_selection" name="property_selection"
-                        class="bg-gray-50 border border-gray-300 mr-2 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         wire:model="property_selection">
                         <option value="apartment"
                             {{ $property->property_selection == 'apartment' ? "selected=''" : '' }}>
@@ -30,8 +35,6 @@
                             Home
                         </option>
                     </select>
-
-                    <div wire:click="reset_value('property_selection')"><i class="fa-solid fa-retweet"></i></div>
                 </div>
 
             </div>
@@ -40,9 +43,8 @@
                     people</label>
                 <div class="flex justify-center items-center">
                     <input type="number" id="max_people" wire:model="max_people" name="max_people"
-                        class="bg-gray-50 border mr-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         value="{{ $property->max_people }}">
-                    <div wire:click="reset_value('max_people')"><i class="fa-solid fa-retweet"></i></div>
                 </div>
             </div>
             <div>
@@ -50,9 +52,8 @@
                         class="fa-solid fa-euro-sign text-gray-900 text-sm pr-1"></i>{{ $property->price }}</label>
                 <div class="flex justify-center items-center">
                     <input type="number" id="price" wire:model="price" name="price"
-                        class="bg-gray-50 border mr-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         value="{{ $property->price }}">
-                    <div wire:click="reset_value('price')"><i class="fa-solid fa-retweet"></i></div>
                 </div>
             </div>
             <div class="w-full col-span-2">
@@ -99,8 +100,7 @@
                 <div class="flex justify-center items-center">
                     <input type="number" id="living_room" wire:model="living_room" name="living_room"
                         value="{{ json_decode($property->rooms_details)->livingRoom }}"
-                        class="bg-gray-50 border mr-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <div wire:click="reset_value('living_room')"><i class="fa-solid fa-retweet"></i></div>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
             </div>
             <div class="mb-6 w-full">
@@ -109,8 +109,7 @@
                 <div class="flex justify-center items-center">
                     <input type="number" id="bedroom" wire:model="bedroom" name="bedroom"
                         value="{{ json_decode($property->rooms_details)->bedroom }}"
-                        class="bg-gray-50 border mr-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <div wire:click="reset_value('bedroom')"><i class="fa-solid fa-retweet"></i></div>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
             </div>
             <div class="mb-6 w-full">
@@ -119,31 +118,27 @@
                 <div class="flex justify-center items-center">
                     <input type="number" id="bathroom" wire:model="bathroom" name="bathroom"
                         value="{{ json_decode($property->rooms_details)->bathroom }}"
-                        class="bg-gray-50 border mr-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <div wire:click="reset_value('bathroom')"><i class="fa-solid fa-retweet"></i></div>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
             </div>
         </div>
 
         <h1 class="pt-8 pb-6 font-semibold text-xl">Property photos</h1>
         <div class="grid grid-cols-3 gap-6 mb-6">
-            @foreach ($property->photos as $photo)
-                <div data-popover-target="photo-popover-{{ $photo->photo_id }}" data-popover-placement="right"
+            {{-- Main photo --}}
+            <div class="w-full h-full rounded-sm overflow-hidden border-2 border-blue-600">
+                <img class="object-cover h-full"
+                    src="{{ Storage::url('property_photos/' . $main_photo['photo_path']) }}" alt="Property image">
+            </div>
+            {{-- Other photos --}}
+            @foreach ($photos as $photo)
+                <div wire:click="change_main_photo({{ $photo }})"
                     class="w-full h-full rounded-sm overflow-hidden {{ $photo->is_main ? 'border-2 border-blue-600' : '' }}">
                     <img class="object-cover h-full"
                         src="{{ Storage::url('property_photos/' . $photo->photo_path) }}" alt="Property image">
                 </div>
-                <div data-popover role="tooltip" id="photo-popover-{{ $photo->photo_id }}"
-                    class="inline-block absolute invisible z-10 w-64 text-sm font-light text-gray-500 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transition-opacity duration-300">
-                    <div
-                        class="py-2 px-3 bg-gray-100 rounded-t-lg border-b border-gray-200 dark:border-gray-600 dark:bg-gray-700">
-                        <h3 class="font-semibold text-gray-900 dark:text-white">{{ $photo->photo_name }}</h3>
-                    </div>
-                    <div data-popper-arrow></div>
-                </div>
             @endforeach
         </div>
-
         <div class="flex justify-end">
             <button type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>

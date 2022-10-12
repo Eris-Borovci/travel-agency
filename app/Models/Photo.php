@@ -9,6 +9,8 @@ class Photo extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "photo_id";
+
     protected $table = "property_photos";
 
     protected $fillable = [
@@ -16,6 +18,6 @@ class Photo extends Model
     ];
 
     function property() {
-        return $this->belongsTo(Property::class, 'id');
+        return $this->belongsTo(Property::class, 'id', 'property_id');
     }
 }
