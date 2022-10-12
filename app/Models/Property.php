@@ -18,6 +18,6 @@ class Property extends Model
     }
 
     function photos(){
-        return $this->hasMany(Photo::class, 'property_id');
+        return $this->hasMany(Photo::class, 'property_id', 'id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Property;
+use App\Http\Middleware\EditPermissionCheck;
 
 class PropertiesController extends Controller
 {
@@ -14,7 +15,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -85,7 +86,12 @@ class PropertiesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $property = Property::where("id", $id)->first();
+        if($property->partner_id != \Auth::user()->id) {
+            return back();
+        }
+
+        return view("property.edit_property")->with('property', $property);
     }
 
     /**
@@ -97,7 +103,7 @@ class PropertiesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $request;
     }
 
     /**

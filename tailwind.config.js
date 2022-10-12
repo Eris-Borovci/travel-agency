@@ -27,6 +27,7 @@ module.exports = {
         "!text-blue-600",
         "!border-blue-600",
         "!flex",
+        "pr-1",
     ],
     theme: {
         colors: {
